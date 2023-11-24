@@ -2,7 +2,7 @@ export const environment = {
   production: false,
   web3: {
     contracts: {
-      supplementTracker: '0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8',
+      supplementTracker: '0x0d195e93994300b15b78b301ffcc08310eA98d43',
     },
   },
 };
