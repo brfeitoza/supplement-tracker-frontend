@@ -1,4 +1,5 @@
 import { Web3 } from 'web3';
+
 import { abi } from './abi';
 import { environment } from 'src/environments/environment';
 import {
@@ -25,8 +26,9 @@ export const getAccountAddress = async () => {
   return accounts[0];
 };
 
-const getSupplementMessage = (supplement: SupplementInfo) => {
-  return `${supplement.name} ${supplement.manufacturer} ${supplement.proteins} ${supplement.carbs} ${supplement.fats} ${supplement.expiryDate}`;
+const getSupplementMessageHash = (web3: Web3, supplement: SupplementInfo) => {
+  const message = `${supplement.name} ${supplement.manufacturer} ${supplement.proteins} ${supplement.carbs} ${supplement.fats} ${supplement.expiryDate}`;
+  return web3.eth.accounts.hashMessage(message);
 };
 
 export const getSupplementTrackerContract = () => {
@@ -45,19 +47,15 @@ export const getSupplementTrackerContract = () => {
   ) => {
     const accounts = await web3.eth.getAccounts();
 
-    const message = getSupplementMessage(supplementInfo);
+    const messageHash = getSupplementMessageHash(web3, supplementInfo);
 
-    const ownerSignature = await web3.eth.accounts.sign(
-      message,
-      environment.web3.account.metamaskPrivateKey
-    );
+    const ownerSignature = await window.ethereum.request({
+      method: 'personal_sign',
+      params: [messageHash, accounts[0]],
+    });
 
     return contract.methods
-      .signSupplement(
-        supplementId,
-        ownerSignature.signature,
-        ownerSignature.messageHash
-      )
+      .signSupplement(supplementId, ownerSignature, messageHash)
       .send({
         from: accounts[0],
       });
@@ -81,7 +79,7 @@ export const getSupplementTrackerContract = () => {
   ) => {
     const accounts = await web3.eth.getAccounts();
 
-    const message = getSupplementMessage({
+    const messageHash = getSupplementMessageHash(web3, {
       name,
       manufacturer,
       proteins,
@@ -90,10 +88,10 @@ export const getSupplementTrackerContract = () => {
       expiryDate,
     });
 
-    const ownerSignature = await web3.eth.accounts.sign(
-      message,
-      environment.web3.account.metamaskPrivateKey
-    );
+    const ownerSignature = await window.ethereum.request({
+      method: 'personal_sign',
+      params: [messageHash, accounts[0]],
+    });
 
     return contract.methods
       .addSupplement(
@@ -103,8 +101,8 @@ export const getSupplementTrackerContract = () => {
         carbs,
         fats,
         expiryDate,
-        ownerSignature.signature,
-        ownerSignature.messageHash
+        ownerSignature,
+        messageHash
       )
       .send({
         from: accounts[0],

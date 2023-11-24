@@ -72,60 +72,6 @@ export const abi = [
         name: '_supplementId',
         type: 'uint256',
       },
-      {
-        internalType: 'address',
-        name: '_signer',
-        type: 'address',
-      },
-    ],
-    name: 'removeAuthorizedSigner',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_supplementId',
-        type: 'uint256',
-      },
-    ],
-    name: 'revokeSignature',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_supplementId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bytes',
-        name: '_signature',
-        type: 'bytes',
-      },
-      {
-        internalType: 'bytes32',
-        name: '_messageHash',
-        type: 'bytes32',
-      },
-    ],
-    name: 'signSupplement',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_supplementId',
-        type: 'uint256',
-      },
     ],
     name: 'getAuthorizedSigners',
     outputs: [
@@ -133,6 +79,47 @@ export const abi = [
         internalType: 'address[]',
         name: '',
         type: 'address[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_supplementId',
+        type: 'uint256',
+      },
+    ],
+    name: 'getSupplementSignatures',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'address',
+            name: 'signer',
+            type: 'address',
+          },
+          {
+            internalType: 'bytes32',
+            name: 'messageHash',
+            type: 'bytes32',
+          },
+          {
+            internalType: 'bytes',
+            name: 'signature',
+            type: 'bytes',
+          },
+          {
+            internalType: 'bool',
+            name: 'revoked',
+            type: 'bool',
+          },
+        ],
+        internalType: 'struct SupplementTracker.SupplementSignature[]',
+        name: '',
+        type: 'tuple[]',
       },
     ],
     stateMutability: 'view',
@@ -195,38 +182,51 @@ export const abi = [
         name: '_supplementId',
         type: 'uint256',
       },
-    ],
-    name: 'getSupplementSignatures',
-    outputs: [
       {
-        components: [
-          {
-            internalType: 'address',
-            name: 'signer',
-            type: 'address',
-          },
-          {
-            internalType: 'bytes32',
-            name: 'messageHash',
-            type: 'bytes32',
-          },
-          {
-            internalType: 'bytes',
-            name: 'signature',
-            type: 'bytes',
-          },
-          {
-            internalType: 'bool',
-            name: 'revoked',
-            type: 'bool',
-          },
-        ],
-        internalType: 'struct SupplementTracker.SupplementSignature[]',
-        name: '',
-        type: 'tuple[]',
+        internalType: 'address',
+        name: '_signer',
+        type: 'address',
       },
     ],
-    stateMutability: 'view',
+    name: 'removeAuthorizedSigner',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_supplementId',
+        type: 'uint256',
+      },
+    ],
+    name: 'revokeSignature',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_supplementId',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bytes',
+        name: '_signature',
+        type: 'bytes',
+      },
+      {
+        internalType: 'bytes32',
+        name: '_messageHash',
+        type: 'bytes32',
+      },
+    ],
+    name: 'signSupplement',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {

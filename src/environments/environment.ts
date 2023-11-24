@@ -2,11 +2,7 @@ export const environment = {
   production: true,
   web3: {
     contracts: {
-      supplementTracker:
-        process.env['SUPPLEMENT_TRACKER_CONTRACT_ADDRESS'] || '0x0',
-    },
-    account: {
-      metamaskPrivateKey: process.env['METAMASK_PRIVATE_KEY'] || '0x0',
+      supplementTracker: '0xC28Abd8773548f145eFFeDD4FB96B00C78bDc1d6',
     },
   },
 };
