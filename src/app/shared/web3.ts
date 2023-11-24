@@ -110,11 +110,9 @@ export const getSupplementTrackerContract = () => {
   };
 
   const getSupplements = async () => {
-    console.log(contract);
     const supplements = (await contract.methods
       .getSupplements()
       .call()) as SupplementInfo[];
-    console.log(getSupplements);
 
     const supplementsWithSignatures: SupplementInfoWithSignature[] = [];
 
