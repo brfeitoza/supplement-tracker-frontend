@@ -49,7 +49,7 @@ export const getSupplementTrackerContract = () => {
 
     const ownerSignature = await web3.eth.accounts.sign(
       message,
-      environment.web3.account.privateKey
+      environment.web3.account.metamaskPrivateKey
     );
 
     return contract.methods
@@ -92,7 +92,7 @@ export const getSupplementTrackerContract = () => {
 
     const ownerSignature = await web3.eth.accounts.sign(
       message,
-      environment.web3.account.privateKey
+      environment.web3.account.metamaskPrivateKey
     );
 
     return contract.methods
